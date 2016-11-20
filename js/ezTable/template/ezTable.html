@@ -1,0 +1,28 @@
+<div class="panel panel-default">
+    <div class="table-responsive">
+        <table class="table table-striped b-t b-light">
+            <thead>
+            <tr>
+                <th ng-repeat="item in fields" ng-click="sortClick(item.name)" style="width: {{item.width}}">{{item.column}}
+                    <span ng-show="item.name==sort.name&&sort.asc" class="glyphicon glyphicon-chevron-up"></span>
+                    <span ng-show="item.name==sort.name&&!sort.asc" class="glyphicon glyphicon-chevron-down"></span>
+                </th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="item1 in data">
+                <td ng-repeat="item2 in fields"><div ez-dynamic field="item2.name" item="item1" arr1="arr1" fn1="fn1" template="item2.template"></div></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <footer class="panel-footer">
+        <div class="row">
+            <div class="col-sm-1 hidden-xs">
+            </div>
+            <div class="col-sm-11 text-right text-center-xs">
+                <tm-pagination conf="paginationConf"></tm-pagination>
+            </div>
+        </div>
+    </footer>
+</div>

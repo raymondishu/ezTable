@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="testTable">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="css/bootstrap.css" />
+    <link rel="stylesheet" href="css/app.css"/>
+    <link rel="stylesheet" href="css/font-awesome.min.css"/>
+    <style>
+        .page-list .pagination {float:left; margin: 5px}
+        .page-list .pagination span {cursor: pointer;}
+        .page-list .pagination .separate span{cursor: default; border-top:none;border-bottom:none;}
+        .page-list .pagination .separate span:hover {background: none;}
+        .page-list .page-total {float:left; margin: 10px 10px;}
+        .page-list .page-total input, .page-list .page-total select{height: 26px; border: 1px solid #ddd;}
+        .page-list .page-total input {width: 40px; padding-left:3px;}
+        .page-list .page-total select {width: 50px;}
+    </style>
+    <script type="text/javascript" src="node_modules/angular/angular.js"></script>
+    <script type="text/javascript" src="js/ezTable/ezTable-directive.js"></script>
+    <script type="text/javascript">
+        initEzTable(angular,'js/ezTable');
+        var testModule=angular.module("testTable",['ezModule']);
+        var testController=testModule.controller('testController',function ($scope,$sce,$compile) {
+//            $scope.$watch('test',function(now,old){
+//                alert(now);
+//            },true);
+            $scope.ttttt1=23123;
+            $scope.testFn=function(a){
+                alert($scope.ttttt1);
+            }
+            $scope.ttt=$compile('<input type="button" ng-click="testFn(0)" value="2">')($scope);
+            $scope.fields=[
+                {
+                    column: '名字',
+                    name: 'name0',
+                    width:"33%",
+                    template:'<input type="button" ng-click="fn1(item[field])" value="{{item[field]}}">'
+                },
+                {
+                    column: '年龄',
+                    name: 'name1',
+                    width:"33%",
+                    template:'<input type="button" ng-click="fn1(item[field])" value="{{item[field]}}">'
+                },
+                {
+                    column: '色斑',
+                    name: 'name2',
+                    width:"33%"
+                }
+            ];
+
+            $scope.data=[{
+                name0:0,
+                name1:1,
+                name2:2
+            },{
+                name0:0,
+                name1:1,
+                name2:2
+            }, {
+                name0:0,
+                name1:1,
+                name2:2
+            }];
+             $scope.$watch('paginationConf',function (now,old) {
+                //alert(now);
+                console.log(now);
+            },true);
+            $scope.$watch('sortInfo',function (now,old) {
+                //alert(now);
+                console.log(now);
+            },true);
+            $scope.paginationConf = {
+                currentPage: 1,
+                totalItems: 8000,
+                itemsPerPage: 15,
+                pagesLength: 15,
+                perPageOptions: [10, 20, 30, 40, 50],
+                rememberPerPage: 'perPageItems',
+                onChange: function(){
+
+                }
+            };
+            $scope.sortInfo={
+                name:'name0',
+                asc:false
+            };
+            $scope.arr1={0:'a',1:'b',2:'c'};
+        });
+
+    </script>
+</head>
+<body ng-controller="testController">
+<div class="container">
+    <ez-table fields="fields" sort="sortInfo" data="data" conf="paginationConf" arr1="arr1" fn1="testFn"></ez-table>
+</div>
+</body>
+</html>
